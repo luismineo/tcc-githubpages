@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Trabalho de Conclusão de Curso — resultados, gráficos interativos e documentos." />
+  <title>TCC — [Seu Nome]</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+
+  <!-- Plotly for interactive charts -->
+  <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
+<body>
+
+  <!-- ===== Navigation ===== -->
+  <nav id="navbar">
+    <span class="nav-brand">TCC · [Seu Nome]</span>
+    <ul class="nav-links">
+      <li><a href="#resumo">Resumo</a></li>
+      <li><a href="#metodologia">Metodologia</a></li>
+      <li><a href="#resultados">Resultados</a></li>
+      <li><a href="#documentos">Documentos</a></li>
+    </ul>
+    <button class="nav-toggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- ===== Hero ===== -->
+  <section id="hero">
+    <div class="hero-badge">Trabalho de Conclusão de Curso · 2026</div>
+
+    <h1 class="hero-title">
+      Otimização de <em>Neural Radiance Fields</em><br />
+      com Codificação por Hash Multiescala
+    </h1>
+
+    <p class="hero-subtitle">
+      Análise da fronteira de Pareto entre qualidade de reconstrução (PSNR)
+      e consumo de memória de vídeo (VRAM) para síntese de novas vistas.
+    </p>
+
+    <div class="btn-group">
+      <a href="#resultados" class="btn btn-primary">Ver Resultados</a>
+      <a href="#documentos" class="btn btn-outline">Documentos</a>
+    </div>
+
+    <div class="hero-meta">
+      <span><strong>Autor:</strong> [Seu Nome]</span>
+      <span><strong>Orientador:</strong> [Nome do Orientador]</span>
+      <span><strong>Instituição:</strong> [Universidade]</span>
+      <span><strong>Curso:</strong> Ciência da Computação</span>
+    </div>
+  </section>
+
+  <!-- ===== Resumo ===== -->
+  <section id="resumo">
+    <div class="container">
+      <span class="section-label">01 · Resumo</span>
+      <h2 class="section-title">Sobre o Trabalho</h2>
+      <div class="section-divider"></div>
+
+      <div class="about-grid">
+        <div>
+          <p>
+            Este trabalho investiga como os hiperparâmetros de modelos de
+            <em>Neural Radiance Fields</em> (NeRF) baseados em codificação por
+            hash multiescala afetam o equilíbrio entre qualidade visual e
+            eficiência computacional.
+          </p>
+          <br />
+          <p>
+            Foram realizados experimentos sistemáticos variando
+            <code style="font-family:var(--font-mono);color:var(--clr-accent);font-size:0.85em">log2_hashmap_size</code>,
+            <code style="font-family:var(--font-mono);color:var(--clr-accent);font-size:0.85em">n_features_per_level</code>
+            e
+            <code style="font-family:var(--font-mono);color:var(--clr-accent);font-size:0.85em">n_rays_per_batch</code>
+            para mapear a fronteira de Pareto PSNR × VRAM.
+          </p>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:1rem;">
+          <div class="card">
+            <h3>Problema</h3>
+            <p>Modelos NeRF de alta qualidade demandam VRAM expressiva, limitando sua aplicação em hardware restrito.</p>
+          </div>
+          <div class="card">
+            <h3>Objetivo</h3>
+            <p>Identificar configurações que ofereçam o melhor custo-benefício entre fidelidade de reconstrução e uso de memória.</p>
+          </div>
+          <div class="card">
+            <h3>Contribuição</h3>
+            <p>Mapa empírico da fronteira de Pareto para guiar escolhas de hiperparâmetros em cenários com restrição de VRAM.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Metodologia ===== -->
+  <section id="metodologia" style="background: var(--clr-surface); border-top: 1px solid var(--clr-border); border-bottom: 1px solid var(--clr-border);">
+    <div class="container">
+      <span class="section-label">02 · Metodologia</span>
+      <h2 class="section-title">Como os Experimentos Foram Conduzidos</h2>
+      <div class="section-divider"></div>
+
+      <div class="about-grid">
+        <div class="card">
+          <h3>Dataset</h3>
+          <p>
+            [Descreva aqui o dataset utilizado, e.g., Blender Synthetic Scenes,
+            LLFF, ou conjunto próprio.]
+          </p>
+        </div>
+        <div class="card">
+          <h3>Hardware</h3>
+          <p>
+            [Especifique a GPU utilizada, RAM, e outras configurações relevantes.]
+          </p>
+        </div>
+        <div class="card">
+          <h3>Hiperparâmetros Variados</h3>
+          <p>
+            <code style="font-family:var(--font-mono);color:var(--clr-accent);font-size:0.85em">log2_hashmap_size</code>:
+            19 a 23<br/>
+            <code style="font-family:var(--font-mono);color:var(--clr-accent);font-size:0.85em">n_features_per_level</code>:
+            2, 4, 8<br/>
+            <code style="font-family:var(--font-mono);color:var(--clr-accent);font-size:0.85em">n_rays_per_batch</code>:
+            4096, 8192, 16384
+          </p>
+        </div>
+        <div class="card">
+          <h3>Métricas Avaliadas</h3>
+          <p>
+            PSNR (dB) como métrica de qualidade.<br/>
+            Pico de VRAM (MB) medido durante o treinamento.<br/>
+            Tempo total de treinamento (s).
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Resultados ===== -->
+  <section id="resultados">
+    <div class="container">
+      <span class="section-label">03 · Resultados</span>
+      <h2 class="section-title">Fronteira de Pareto: PSNR × VRAM</h2>
+      <div class="section-divider"></div>
+
+      <!-- Summary stats -->
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-value" id="stat-total">–</div>
+          <div class="stat-label">Experimentos</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="stat-pareto">–</div>
+          <div class="stat-label">Na fronteira de Pareto</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="stat-best-psnr">–</div>
+          <div class="stat-label">Melhor PSNR (dB)</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="stat-min-vram">–</div>
+          <div class="stat-label">Menor VRAM (MB)</div>
+        </div>
+      </div>
+
+      <!-- Pareto chart -->
+      <div class="chart-card">
+        <div class="chart-header">
+          <div>
+            <div class="chart-title">Fronteira de Pareto — PSNR vs. VRAM</div>
+            <div class="chart-desc">Passe o cursor sobre os pontos para ver os hiperparâmetros usados em cada experimento.</div>
+          </div>
+          <div class="legend">
+            <div class="legend-item">
+              <div class="legend-dot" style="background:#4fffb0;"></div>
+              <span>Fronteira de Pareto</span>
+            </div>
+            <div class="legend-item">
+              <div class="legend-dot" style="background:rgba(108,143,255,0.5);"></div>
+              <span>Dominados</span>
+            </div>
+            <div class="legend-item" style="align-items:baseline; gap:0.4rem;">
+              <div style="display:flex; gap:3px; align-items:center;">
+                <div style="width:8px;height:8px;border-radius:50%;background:var(--clr-muted);opacity:0.6;"></div>
+                <div style="width:14px;height:14px;border-radius:50%;background:var(--clr-muted);"></div>
+              </div>
+              <span>Tamanho = tempo de treino</span>
+            </div>
+          </div>
+        </div>
+
+        <div id="pareto-chart"></div>
+        <p class="chart-note">
+          * Dados preliminares. Substitua o arquivo <code>data/results.json</code>
+          com os resultados reais dos seus experimentos.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Documentos ===== -->
+  <section id="documentos" style="background: var(--clr-surface); border-top: 1px solid var(--clr-border);">
+    <div class="container">
+      <span class="section-label">04 · Documentos</span>
+      <h2 class="section-title">Material do Trabalho</h2>
+      <div class="section-divider"></div>
+
+      <div class="doc-grid">
+        <a href="#" class="doc-card">
+          <div class="doc-icon">📄</div>
+          <div class="doc-info">
+            <h3>Monografia Completa</h3>
+            <p>PDF · Em breve</p>
+          </div>
+        </a>
+        <a href="#" class="doc-card">
+          <div class="doc-icon">🎞️</div>
+          <div class="doc-info">
+            <h3>Apresentação de Defesa</h3>
+            <p>PPTX / PDF · Em breve</p>
+          </div>
+        </a>
+        <a href="#" class="doc-card">
+          <div class="doc-icon">💾</div>
+          <div class="doc-info">
+            <h3>Código Fonte</h3>
+            <p>GitHub · Em breve</p>
+          </div>
+        </a>
+        <a href="#" class="doc-card">
+          <div class="doc-icon">📊</div>
+          <div class="doc-info">
+            <h3>Dados dos Experimentos</h3>
+            <p>JSON / CSV · Em breve</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer>
+    <p>
+      [Seu Nome] · [Universidade] · 2026 ·
+      <a href="https://github.com/[seu-usuario]/[repo]">GitHub</a>
+    </p>
+  </footer>
+
+  <script src="./js/nav.js"></script>
+  <script src="./js/charts.js"></script>
+
+  <!-- Populate summary stats after data loads -->
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const res  = await fetch('./data/results.json');
+      const data = await res.json();
+      const all    = data.all_experiments;
+      const pareto = data.pareto_front;
+
+      document.getElementById('stat-total').textContent   = all.length;
+      document.getElementById('stat-pareto').textContent  = pareto.length;
+      document.getElementById('stat-best-psnr').textContent =
+        Math.max(...all.map(e => e.psnr)).toFixed(1);
+      document.getElementById('stat-min-vram').textContent  =
+        Math.min(...all.map(e => e.vram_mb));
+    });
+  </script>
+</body>
+</html>
