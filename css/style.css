@@ -169,6 +169,26 @@ section { padding: 5rem 2rem; }
 .legend-item { display: flex; align-items: center; gap: 0.4rem; }
 .legend-dot { width: 10px; height: 10px; border-radius: 50%; }
 
+.scene-switch {
+  display: inline-flex; gap: 2px; padding: 3px;
+  background: var(--clr-bg);
+  border: 1px solid var(--clr-border);
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
+}
+.scene-btn {
+  background: transparent; border: none; cursor: pointer;
+  padding: 0.4rem 0.9rem; border-radius: 6px;
+  font-family: var(--font-sans); font-size: 0.82rem; font-weight: 600;
+  color: var(--clr-muted); transition: var(--transition);
+}
+.scene-btn:hover { color: var(--clr-text); }
+.scene-btn.active {
+  background: rgba(108,143,255,0.15);
+  color: var(--clr-accent);
+  box-shadow: inset 0 0 0 1px rgba(108,143,255,0.35);
+}
+
 #pareto-chart { width: 100%; height: 480px; }
 
 .chart-note {

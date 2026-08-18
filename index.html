@@ -80,8 +80,9 @@
             <code style="font-family:var(--font-mono);color:var(--clr-accent);font-size:0.85em">log2_hashmap_size</code>,
             <code style="font-family:var(--font-mono);color:var(--clr-accent);font-size:0.85em">n_features_per_level</code>
             e
-            <code style="font-family:var(--font-mono);color:var(--clr-accent);font-size:0.85em">n_rays_per_batch</code>
-            para mapear a fronteira de Pareto PSNR × VRAM.
+            <code style="font-family:var(--font-mono);color:var(--clr-accent);font-size:0.85em">num_levels</code>
+            nas cenas <em>chair</em> e <em>lego</em>, mapeando a fronteira de Pareto
+            PSNR × VRAM.
           </p>
         </div>
 
@@ -127,18 +128,21 @@
         <div class="card">
           <h3>Hiperparâmetros Variados</h3>
           <p>
-            <code style="font-family:var(--font-mono);color:var(--clr-accent);font-size:0.85em">log2_hashmap_size</code>:
-            19 a 23<br/>
-            <code style="font-family:var(--font-mono);color:var(--clr-accent);font-size:0.85em">n_features_per_level</code>:
-            2, 4, 8<br/>
-            <code style="font-family:var(--font-mono);color:var(--clr-accent);font-size:0.85em">n_rays_per_batch</code>:
-            4096, 8192, 16384
+            <code style="font-family:var(--font-mono);color:var(--clr-accent);font-size:0.85em">log2_hashmap_size</code>
+            (T): 15, 17, 19<br/>
+            <code style="font-family:var(--font-mono);color:var(--clr-accent);font-size:0.85em">n_features_per_level</code>
+            (F): 2, 4, 8<br/>
+            <code style="font-family:var(--font-mono);color:var(--clr-accent);font-size:0.85em">num_levels</code>
+            (L): 4, 8, 16<br/>
+            <code style="font-family:var(--font-mono);color:var(--clr-accent);font-size:0.85em">per_level_scale</code>
+            derivado de L (5,0397 · 2,0 · 1,3819)
           </p>
         </div>
         <div class="card">
           <h3>Métricas Avaliadas</h3>
           <p>
-            PSNR (dB) como métrica de qualidade.<br/>
+            PSNR (dB, com desvio-padrão entre as vistas de teste), SSIM e LPIPS
+            como métricas de qualidade.<br/>
             Pico de VRAM (MB) medido durante o treinamento.<br/>
             Tempo total de treinamento (s).
           </p>
@@ -158,11 +162,11 @@
       <div class="stats-row">
         <div class="stat-card">
           <div class="stat-value" id="stat-total">–</div>
-          <div class="stat-label">Experimentos</div>
+          <div class="stat-label">Execuções analisadas</div>
         </div>
         <div class="stat-card">
           <div class="stat-value" id="stat-pareto">–</div>
-          <div class="stat-label">Na fronteira de Pareto</div>
+          <div class="stat-label">Na fronteira PSNR × VRAM</div>
         </div>
         <div class="stat-card">
           <div class="stat-value" id="stat-best-psnr">–</div>
@@ -170,7 +174,7 @@
         </div>
         <div class="stat-card">
           <div class="stat-value" id="stat-min-vram">–</div>
-          <div class="stat-label">Menor VRAM (MB)</div>
+          <div class="stat-label">Menor pico de VRAM (MB)</div>
         </div>
       </div>
 
@@ -179,31 +183,23 @@
         <div class="chart-header">
           <div>
             <div class="chart-title">Fronteira de Pareto — PSNR vs. VRAM</div>
-            <div class="chart-desc">Passe o cursor sobre os pontos para ver os hiperparâmetros usados em cada experimento.</div>
+            <div class="chart-desc">Passe o cursor sobre os pontos para ver as métricas e os hiperparâmetros de cada execução.</div>
           </div>
-          <div class="legend">
-            <div class="legend-item">
-              <div class="legend-dot" style="background:#4fffb0;"></div>
-              <span>Fronteira de Pareto</span>
-            </div>
-            <div class="legend-item">
-              <div class="legend-dot" style="background:rgba(108,143,255,0.5);"></div>
-              <span>Dominados</span>
-            </div>
-            <div class="legend-item" style="align-items:baseline; gap:0.4rem;">
-              <div style="display:flex; gap:3px; align-items:center;">
-                <div style="width:8px;height:8px;border-radius:50%;background:var(--clr-muted);opacity:0.6;"></div>
-                <div style="width:14px;height:14px;border-radius:50%;background:var(--clr-muted);"></div>
-              </div>
-              <span>Tamanho = tempo de treino</span>
-            </div>
-          </div>
+          <div class="legend" id="chart-legend"></div>
+        </div>
+
+        <div class="scene-switch" role="group" aria-label="Selecionar cena">
+          <button class="scene-btn active" data-scene="chair">Chair</button>
+          <button class="scene-btn" data-scene="lego">Lego</button>
+          <button class="scene-btn" data-scene="ambas">Ambas as cenas</button>
         </div>
 
         <div id="pareto-chart"></div>
         <p class="chart-note">
-          * Dados preliminares. Substitua o arquivo <code>data/results.json</code>
-          com os resultados reais dos seus experimentos.
+          Dados reais de <a href="./data/pareto.csv"><code>data/pareto.csv</code></a>:
+          execuções das cenas <em>chair</em> e <em>lego</em> que compõem a fronteira de Pareto
+          tridimensional (PSNR × VRAM × tempo de treino). Em destaque, o subconjunto que
+          permanece não dominado na projeção bidimensional PSNR × VRAM.
         </p>
       </div>
     </div>
@@ -238,11 +234,11 @@
             <p>GitHub · Em breve</p>
           </div>
         </a>
-        <a href="#" class="doc-card">
+        <a href="./data/pareto.csv" download class="doc-card">
           <div class="doc-icon">📊</div>
           <div class="doc-info">
             <h3>Dados dos Experimentos</h3>
-            <p>JSON / CSV · Em breve</p>
+            <p>CSV · pareto.csv</p>
           </div>
         </a>
       </div>
@@ -259,22 +255,5 @@
 
   <script src="./js/nav.js"></script>
   <script src="./js/charts.js"></script>
-
-  <!-- Populate summary stats after data loads -->
-  <script>
-    document.addEventListener('DOMContentLoaded', async () => {
-      const res  = await fetch('./data/results.json');
-      const data = await res.json();
-      const all    = data.all_experiments;
-      const pareto = data.pareto_front;
-
-      document.getElementById('stat-total').textContent   = all.length;
-      document.getElementById('stat-pareto').textContent  = pareto.length;
-      document.getElementById('stat-best-psnr').textContent =
-        Math.max(...all.map(e => e.psnr)).toFixed(1);
-      document.getElementById('stat-min-vram').textContent  =
-        Math.min(...all.map(e => e.vram_mb));
-    });
-  </script>
 </body>
 </html>
